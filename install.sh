@@ -5,6 +5,8 @@ REPO=${REPO:-"YOUR_ORG/erpai-cli-releases"}
 VERSION=${VERSION:-"latest"}
 INSTALL_DIR=${INSTALL_DIR:-"/usr/local/bin"}
 BIN_NAME="erpai"
+WORKER_NAME="parser.worker.js"
+WASM_NAME="web-tree-sitter.wasm"
 
 usage() {
   echo "Usage: REPO=org/repo [VERSION=vX.Y.Z] sh install.sh"
@@ -44,6 +46,17 @@ download_public() {
   curl -fsSL "$URL" -o "/tmp/${BIN_NAME}"
 }
 
+download_asset() {
+  ASSET_NAME="$1"
+  TARGET_PATH="$2"
+  if [ "$VERSION" = "latest" ]; then
+    URL="https://github.com/${REPO}/releases/latest/download/${ASSET_NAME}"
+  else
+    URL="https://github.com/${REPO}/releases/download/${VERSION}/${ASSET_NAME}"
+  fi
+  curl -fsSL "$URL" -o "$TARGET_PATH"
+}
+
 if ! download_public; then
   echo "Download failed."
   exit 1
@@ -52,6 +65,11 @@ fi
 chmod +x "/tmp/${BIN_NAME}"
 mkdir -p "$INSTALL_DIR"
 mv "/tmp/${BIN_NAME}" "${INSTALL_DIR}/${BIN_NAME}"
+
+# Optional TUI assets for Tree-sitter worker
+if download_asset "$WORKER_NAME" "${INSTALL_DIR}/${WORKER_NAME}"; then
+  download_asset "$WASM_NAME" "${INSTALL_DIR}/${WASM_NAME}" || true
+fi
 
 echo "Installed ${BIN_NAME} to ${INSTALL_DIR}/${BIN_NAME}"
 ${BIN_NAME} --version || true
