@@ -49,7 +49,7 @@ export default function Home() {
               asChild
               className="rounded-full bg-stone-900 hover:bg-stone-800 text-white"
             >
-              <a href="https://app.erp.ai">
+              <a href="https://erp.ai">
                 Get Started
                 <ArrowUpRight className="ml-1 h-4 w-4" />
               </a>
@@ -220,7 +220,7 @@ export default function Home() {
                 size="lg"
                 className="rounded-full bg-gradient-to-r from-orange-500 via-red-500 to-violet-600 hover:from-orange-600 hover:via-red-600 hover:to-violet-700 text-white"
               >
-                <a href="https://app.erp.ai">
+                <a href="https://erp.ai">
                   Get Started Free
                   <ArrowUpRight className="ml-1 h-4 w-4" />
                 </a>
