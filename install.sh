@@ -3,7 +3,7 @@ set -e
 
 REPO=${REPO:-"YOUR_ORG/erpai-cli-releases"}
 VERSION=${VERSION:-"latest"}
-INSTALL_DIR=${INSTALL_DIR:-"/usr/local/bin"}
+INSTALL_DIR=${INSTALL_DIR:-""}
 BIN_NAME="erpai"
 WORKER_NAME="parser.worker.js"
 WASM_NAME="web-tree-sitter.wasm"
@@ -17,6 +17,14 @@ if [ "$REPO" = "YOUR_ORG/erpai-cli-releases" ]; then
   echo "Set REPO=org/repo before running."
   usage
   exit 1
+fi
+
+if [ -z "$INSTALL_DIR" ]; then
+  if [ "$(id -u)" -eq 0 ] || [ -w "/usr/local/bin" ]; then
+    INSTALL_DIR="/usr/local/bin"
+  else
+    INSTALL_DIR="${HOME}/.local/bin"
+  fi
 fi
 
 OS="$(uname -s | tr '[:upper:]' '[:lower:]')"
@@ -72,4 +80,7 @@ if download_asset "$WORKER_NAME" "${INSTALL_DIR}/${WORKER_NAME}"; then
 fi
 
 echo "Installed ${BIN_NAME} to ${INSTALL_DIR}/${BIN_NAME}"
+if [ "$INSTALL_DIR" = "${HOME}/.local/bin" ]; then
+  echo "Add to PATH: export PATH=\"${HOME}/.local/bin:$PATH\""
+fi
 ${BIN_NAME} --version || true
