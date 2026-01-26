@@ -1,21 +1,15 @@
 #!/bin/sh
 set -e
 
-REPO=${REPO:-"YOUR_ORG/erpai-cli"}
+REPO=${REPO:-"ERPdotAI/erpai-cli-releases"}
 VERSION=${VERSION:-"latest"}
 INSTALL_DIR=${INSTALL_DIR:-"/usr/local/bin"}
 BIN_NAME="erpai"
 
 usage() {
-  echo "Usage: REPO=org/repo [VERSION=vX.Y.Z] sh install.sh"
-  echo "Optional: INSTALL_DIR=/custom/path"
+  echo "Usage: curl -fsSL https://raw.githubusercontent.com/ERPdotAI/erpai-cli-releases/main/install.sh | sh"
+  echo "Optional: VERSION=vX.Y.Z INSTALL_DIR=/custom/path sh install.sh"
 }
-
-if [ "$REPO" = "YOUR_ORG/erpai-cli" ]; then
-  echo "Set REPO=org/repo before running."
-  usage
-  exit 1
-fi
 
 OS="$(uname -s | tr '[:upper:]' '[:lower:]')"
 ARCH="$(uname -m)"
