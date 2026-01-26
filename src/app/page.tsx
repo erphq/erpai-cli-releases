@@ -9,7 +9,7 @@ import {
   Zap,
   Shield,
   BarChart3,
-  ArrowUpRight,
+  ArrowRight,
 } from "lucide-react";
 
 const INSTALL_COMMAND = `curl -fsSL https://raw.githubusercontent.com/ERPdotAI/erpai-cli-releases/main/install.sh | sh`;
@@ -24,10 +24,10 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-stone-50">
+    <div className="min-h-screen bg-[#FFFBF5]">
       {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-stone-200 bg-white/80 backdrop-blur-sm">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+      <header className="sticky top-0 z-50 border-b border-stone-200/60 bg-white/80 backdrop-blur-sm">
+        <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
           <a href="https://erp.ai" className="flex items-center gap-2">
             <Logo />
           </a>
@@ -46,64 +46,66 @@ export default function Home() {
             </a>
             <Button
               asChild
-              className="rounded-full bg-stone-900 hover:bg-stone-800 text-white"
+              className="rounded-full bg-[#F97316] hover:bg-[#EA580C] text-white px-5"
             >
-              <a href="https://erp.ai">
-                Get Started
-                <ArrowUpRight className="ml-1 h-4 w-4" />
-              </a>
+              <a href="https://erp.ai">Contact</a>
             </Button>
           </nav>
         </div>
       </header>
 
       {/* Hero */}
-      <main className="mx-auto max-w-6xl px-6">
+      <main className="mx-auto max-w-5xl px-6">
         <section className="py-16 md:py-24 text-center">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-stone-200 bg-white px-4 py-1.5 shadow-sm">
-            <Terminal className="h-4 w-4 text-stone-600" />
+          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-stone-200 bg-white px-4 py-2">
+            <Terminal className="h-4 w-4 text-stone-500" />
             <span className="text-sm text-stone-600">Command Line Interface</span>
           </div>
 
-          <h1 className="mb-6 text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-stone-900">
-            <span className="font-instrument-serif italic bg-gradient-to-r from-orange-500 via-red-500 to-violet-600 text-transparent bg-clip-text">
+          <h1 className="mb-6 text-4xl md:text-5xl lg:text-6xl tracking-tight text-stone-900">
+            AI-Native Platform
+          </h1>
+          
+          <h2 className="mb-8 text-4xl md:text-5xl lg:text-6xl tracking-tight">
+            <span className="font-instrument-serif italic text-[#F97316]">
               Powering
             </span>{" "}
-            your ERP
-            <br className="hidden md:block" /> with{" "}
-            <span className="font-instrument-serif italic text-emerald-600">
-              AI
+            <span className="text-stone-900">the future of</span>{" "}
+            <span className="font-instrument-serif italic text-[#22C55E]">
+              CLI
             </span>
-          </h1>
+          </h2>
 
-          <p className="mx-auto mb-10 max-w-2xl text-lg text-stone-600">
+          <p className="mx-auto mb-12 max-w-2xl text-lg text-stone-600">
             Query your ERP data using natural language. Get instant insights,
             generate reports, and automate workflows from your terminal.
           </p>
 
           {/* Install Box */}
-          <div className="mx-auto max-w-2xl">
-            <div className="rounded-2xl border border-stone-800 bg-stone-950 p-5 md:p-6 text-left shadow-2xl">
+          <div className="mx-auto max-w-xl">
+            <div className="rounded-2xl border border-stone-200 bg-[#1C1C1C] p-5 text-left shadow-lg">
               <div className="mb-4 flex items-center gap-2">
-                <div className="h-3 w-3 rounded-full bg-red-500" />
-                <div className="h-3 w-3 rounded-full bg-yellow-500" />
-                <div className="h-3 w-3 rounded-full bg-green-500" />
+                <div className="h-3 w-3 rounded-full bg-[#FF5F56]" />
+                <div className="h-3 w-3 rounded-full bg-[#FFBD2E]" />
+                <div className="h-3 w-3 rounded-full bg-[#27CA40]" />
                 <span className="ml-2 text-xs text-stone-500 font-mono">
                   Terminal
                 </span>
               </div>
-              <pre className="overflow-x-auto text-sm md:text-base leading-relaxed font-mono">
-                <code className="text-stone-300">{INSTALL_COMMAND}</code>
-              </pre>
+              <div className="overflow-hidden">
+                <code className="text-sm text-stone-300 font-mono break-all">
+                  {INSTALL_COMMAND}
+                </code>
+              </div>
               <Button
                 onClick={copyCommand}
                 variant="outline"
                 size="sm"
-                className="mt-4 gap-2 border-stone-700 bg-stone-900 text-stone-300 hover:bg-stone-800 hover:text-white hover:border-stone-600"
+                className="mt-4 gap-2 border-stone-600 bg-[#2A2A2A] text-stone-300 hover:bg-[#333] hover:text-white hover:border-stone-500"
               >
                 {copied ? (
                   <>
-                    <Check className="h-4 w-4 text-emerald-500" />
+                    <Check className="h-4 w-4 text-[#27CA40]" />
                     Copied!
                   </>
                 ) : (
@@ -118,15 +120,15 @@ export default function Home() {
         </section>
 
         {/* Getting Started */}
-        <section className="border-t border-stone-200 py-16 md:py-20">
-          <h2 className="mb-10 md:mb-12 text-center text-2xl md:text-3xl font-semibold text-stone-900">
+        <section className="border-t border-stone-200/60 py-16 md:py-20">
+          <h2 className="mb-10 md:mb-12 text-center text-2xl md:text-3xl text-stone-900">
             Get started in{" "}
-            <span className="font-instrument-serif italic bg-gradient-to-r from-orange-500 to-red-500 text-transparent bg-clip-text">
+            <span className="font-instrument-serif italic text-[#F97316]">
               seconds
             </span>
           </h2>
 
-          <div className="mx-auto grid max-w-3xl gap-6 md:gap-8">
+          <div className="mx-auto grid max-w-2xl gap-5">
             <Step
               number={1}
               title="Install the CLI"
@@ -148,55 +150,55 @@ export default function Home() {
         </section>
 
         {/* Features */}
-        <section className="border-t border-stone-200 py-16 md:py-20">
-          <h2 className="mb-10 md:mb-12 text-center text-2xl md:text-3xl font-semibold text-stone-900">
+        <section className="border-t border-stone-200/60 py-16 md:py-20">
+          <h2 className="mb-10 md:mb-12 text-center text-2xl md:text-3xl text-stone-900">
             Built for{" "}
-            <span className="font-instrument-serif italic text-emerald-600">
+            <span className="font-instrument-serif italic text-[#22C55E]">
               enterprise
             </span>
           </h2>
 
-          <div className="grid gap-4 md:gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <Feature
-              icon={<Terminal className="h-6 w-6" />}
+              icon={<Terminal className="h-5 w-5" />}
               title="Natural Language"
-              description="Query your data with plain English questions"
+              description="Query your data with plain English"
             />
             <Feature
-              icon={<BarChart3 className="h-6 w-6" />}
+              icon={<BarChart3 className="h-5 w-5" />}
               title="Analytics"
-              description="Generate reports and insights from your ERP"
+              description="Generate reports and insights"
             />
             <Feature
-              icon={<Shield className="h-6 w-6" />}
+              icon={<Shield className="h-5 w-5" />}
               title="Secure"
-              description="Enterprise-grade security and authentication"
+              description="Enterprise-grade security"
             />
             <Feature
-              icon={<Zap className="h-6 w-6" />}
+              icon={<Zap className="h-5 w-5" />}
               title="Fast"
-              description="Instant responses powered by AI"
+              description="Instant AI-powered responses"
             />
           </div>
         </section>
 
         {/* Requirements */}
-        <section className="border-t border-stone-200 py-16 md:py-20">
-          <h2 className="mb-8 text-center text-2xl md:text-3xl font-semibold text-stone-900">
+        <section className="border-t border-stone-200/60 py-16 md:py-20">
+          <h2 className="mb-8 text-center text-2xl md:text-3xl text-stone-900">
             Requirements
           </h2>
-          <div className="mx-auto flex max-w-2xl flex-wrap justify-center gap-3 md:gap-4">
+          <div className="mx-auto flex max-w-2xl flex-wrap justify-center gap-3">
             {[
-              "macOS (Apple Silicon or Intel)",
+              "macOS (Apple Silicon / Intel)",
               "Linux (x64)",
               "Windows (x64)",
               "ERP·AI account",
             ].map((req) => (
               <div
                 key={req}
-                className="flex items-center gap-2 rounded-full border border-stone-200 bg-white px-4 py-2 shadow-sm"
+                className="flex items-center gap-2 rounded-full border border-stone-200 bg-white px-4 py-2"
               >
-                <Check className="h-4 w-4 text-emerald-500" />
+                <Check className="h-4 w-4 text-[#22C55E]" />
                 <span className="text-sm text-stone-700">{req}</span>
               </div>
             ))}
@@ -204,43 +206,39 @@ export default function Home() {
         </section>
 
         {/* CTA Section */}
-        <section className="border-t border-stone-200 py-16 md:py-20">
-          <div className="mx-auto max-w-2xl text-center">
-            <div className="rounded-2xl border border-dashed border-stone-300 bg-gradient-to-br from-stone-50 to-stone-100 p-8 md:p-10">
-              <h3 className="mb-3 text-xl md:text-2xl font-semibold text-stone-900">
-                Ready to get started?
-              </h3>
-              <p className="mb-6 text-stone-600">
-                Sign up for ERP·AI and start building AI-powered business apps
-                today.
-              </p>
-              <Button
-                asChild
-                size="lg"
-                className="rounded-full bg-gradient-to-r from-orange-500 via-red-500 to-violet-600 hover:from-orange-600 hover:via-red-600 hover:to-violet-700 text-white"
-              >
-                <a href="https://erp.ai">
-                  Get Started Free
-                  <ArrowUpRight className="ml-1 h-4 w-4" />
-                </a>
-              </Button>
-            </div>
+        <section className="border-t border-stone-200/60 py-16 md:py-20">
+          <div className="mx-auto max-w-lg text-center">
+            <h3 className="mb-4 text-2xl text-stone-900">
+              Ready to get started?
+            </h3>
+            <p className="mb-6 text-stone-600">
+              Sign up for ERP·AI and start building AI-powered business apps.
+            </p>
+            <Button
+              asChild
+              className="rounded-full bg-[#F97316] hover:bg-[#EA580C] text-white px-6"
+            >
+              <a href="https://erp.ai">
+                Build Now with ERP·AI
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </a>
+            </Button>
           </div>
         </section>
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-stone-200 bg-white py-8">
-        <div className="mx-auto max-w-6xl px-6">
+      <footer className="border-t border-stone-200/60 bg-white py-8">
+        <div className="mx-auto max-w-5xl px-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2 opacity-60">
+            <div className="opacity-50">
               <Logo />
             </div>
             <p className="text-sm text-stone-500">
               Made with love by{" "}
               <a
                 href="https://erp.ai"
-                className="bg-gradient-to-r from-orange-500 to-red-500 text-transparent bg-clip-text hover:from-orange-600 hover:to-red-600 transition-colors"
+                className="text-[#F97316] hover:underline"
               >
                 ERP·AI
               </a>
@@ -258,7 +256,7 @@ function Logo() {
       xmlns="http://www.w3.org/2000/svg"
       fill="currentColor"
       viewBox="0 0 764 200"
-      className="h-5 md:h-6 w-auto text-stone-900"
+      className="h-5 w-auto text-stone-900"
     >
       <path
         fillRule="evenodd"
@@ -281,15 +279,15 @@ function Step({
   code?: string;
 }) {
   return (
-    <div className="flex gap-4 p-4 rounded-xl bg-white border border-stone-200 shadow-sm">
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold">
+    <div className="flex gap-4 p-4 rounded-xl bg-white border border-stone-200">
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#F97316] text-white font-medium text-sm">
         {number}
       </div>
       <div className="flex-1">
-        <h3 className="mb-1 text-lg font-semibold text-stone-900">{title}</h3>
-        <p className="text-stone-600">{description}</p>
+        <h3 className="mb-1 font-medium text-stone-900">{title}</h3>
+        <p className="text-sm text-stone-600">{description}</p>
         {code && (
-          <code className="mt-2 inline-block rounded-lg bg-stone-100 px-3 py-1.5 font-mono text-sm text-stone-800 border border-stone-200">
+          <code className="mt-2 inline-block rounded-md bg-stone-100 px-3 py-1.5 font-mono text-sm text-stone-800">
             {code}
           </code>
         )}
@@ -308,12 +306,12 @@ function Feature({
   description: string;
 }) {
   return (
-    <div className="rounded-xl border border-stone-200 bg-white p-5 md:p-6 transition-all hover:shadow-md hover:border-stone-300">
-      <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg bg-stone-100 text-stone-700">
+    <div className="rounded-xl border border-stone-200 bg-white p-5">
+      <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-stone-100 text-stone-600">
         {icon}
       </div>
-      <h3 className="mb-2 font-semibold text-stone-900">{title}</h3>
-      <p className="text-sm text-stone-600 leading-relaxed">{description}</p>
+      <h3 className="mb-1 font-medium text-stone-900">{title}</h3>
+      <p className="text-sm text-stone-600">{description}</p>
     </div>
   );
 }
