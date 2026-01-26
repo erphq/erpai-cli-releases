@@ -12,7 +12,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 
-const INSTALL_COMMAND = `curl -fsSL https://raw.githubusercontent.com/ERPdotAI/erpai-cli-releases/main/install.sh | sh`;
+const INSTALL_COMMAND = `curl -fsSL https://install.erpai.dev/install.sh | sh`;
 
 export default function Home() {
   const [copied, setCopied] = useState(false);
