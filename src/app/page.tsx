@@ -10,6 +10,10 @@ import {
   Shield,
   BarChart3,
   ArrowRight,
+  MessageSquare,
+  Database,
+  LogIn,
+  History,
 } from "lucide-react";
 
 const INSTALL_COMMAND = `curl -fsSL https://install.erpai.dev/install.sh | sh`;
@@ -56,29 +60,22 @@ export default function Home() {
 
       {/* Hero */}
       <main className="mx-auto max-w-5xl px-6">
-        <section className="py-16 md:py-24 text-center">
+        <section className="py-16 md:py-20 text-center">
           <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-stone-200 bg-white px-4 py-2">
             <Terminal className="h-4 w-4 text-stone-500" />
             <span className="text-sm text-stone-600">Command Line Interface</span>
           </div>
 
-          <h1 className="mb-6 text-4xl md:text-5xl lg:text-6xl tracking-tight text-stone-900">
-            AI-Native Platform
-          </h1>
-
-          <h2 className="mb-8 text-4xl md:text-5xl lg:text-6xl tracking-tight">
+          <h1 className="mb-4 text-4xl md:text-5xl lg:text-6xl tracking-tight text-stone-900">
+            ERP·AI{" "}
             <span className="font-instrument-serif italic text-[#F97316]">
-              Powering
-            </span>{" "}
-            <span className="text-stone-900">the future of</span>{" "}
-            <span className="font-instrument-serif italic text-[#22C55E]">
               CLI
             </span>
-          </h2>
-
-          <p className="mx-auto mb-12 max-w-2xl text-lg text-stone-600">
-            Query your ERP data using natural language. Get instant insights,
-            generate reports, and automate workflows from your terminal.
+          </h1>
+          
+          <p className="mx-auto mb-10 max-w-2xl text-lg text-stone-600">
+            Query your ERP data using natural language directly from your terminal.
+            Get instant insights, run analytics, and explore your business data.
           </p>
 
           {/* Install Box */}
@@ -119,65 +116,128 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Getting Started */}
+        {/* Commands */}
         <section className="border-t border-stone-200/60 py-16 md:py-20">
-          <h2 className="mb-10 md:mb-12 text-center text-2xl md:text-3xl text-stone-900">
-            Get started in{" "}
-            <span className="font-instrument-serif italic text-[#F97316]">
-              seconds
+          <h2 className="mb-4 text-center text-2xl md:text-3xl text-stone-900">
+            Commands
+          </h2>
+          <p className="mb-10 text-center text-stone-600 max-w-xl mx-auto">
+            Simple commands to interact with your ERP·AI apps
+          </p>
+
+          <div className="mx-auto grid max-w-3xl gap-4 md:grid-cols-2">
+            <CommandCard
+              icon={<LogIn className="h-5 w-5" />}
+              command="erpai login"
+              description="Authenticate with your ERP·AI account via browser"
+            />
+            <CommandCard
+              icon={<MessageSquare className="h-5 w-5" />}
+              command="erpai chat"
+              description="Start an AI-powered chat session with your app"
+            />
+            <CommandCard
+              icon={<History className="h-5 w-5" />}
+              command="erpai threads"
+              description="List and resume previous chat conversations"
+            />
+            <CommandCard
+              icon={<Terminal className="h-5 w-5" />}
+              command="erpai doctor"
+              description="Check CLI configuration and connectivity"
+            />
+          </div>
+        </section>
+
+        {/* What you can do */}
+        <section className="border-t border-stone-200/60 py-16 md:py-20">
+          <h2 className="mb-4 text-center text-2xl md:text-3xl text-stone-900">
+            What you can{" "}
+            <span className="font-instrument-serif italic text-[#22C55E]">
+              do
             </span>
           </h2>
+          <p className="mb-10 text-center text-stone-600 max-w-xl mx-auto">
+            Ask questions in plain English and get answers from your data
+          </p>
 
-          <div className="mx-auto grid max-w-2xl gap-5">
-            <Step
-              number={1}
-              title="Install the CLI"
-              description="Run the install command above. The binary will be installed to /usr/local/bin"
+          <div className="mx-auto max-w-3xl space-y-4">
+            <ExampleCard
+              question="How many active customers do we have?"
+              answer="You have 1,247 active customers across 12 regions."
             />
-            <Step
-              number={2}
-              title="Log in to your account"
-              description="Authenticate with your ERP·AI credentials"
-              code="erpai login"
+            <ExampleCard
+              question="What's the total revenue for Q4?"
+              answer="Q4 revenue is $2.4M, up 18% from Q3."
             />
-            <Step
-              number={3}
-              title="Start chatting"
-              description="Query your ERP data using natural language"
-              code="erpai chat"
+            <ExampleCard
+              question="Show me top 5 products by sales"
+              answer="1. Widget Pro ($450K) 2. Service Plus ($320K) ..."
+            />
+            <ExampleCard
+              question="Average order value by customer segment?"
+              answer="Enterprise: $12,400 | SMB: $2,100 | Startup: $890"
             />
           </div>
         </section>
 
         {/* Features */}
         <section className="border-t border-stone-200/60 py-16 md:py-20">
-          <h2 className="mb-10 md:mb-12 text-center text-2xl md:text-3xl text-stone-900">
-            Built for{" "}
-            <span className="font-instrument-serif italic text-[#22C55E]">
-              enterprise
-            </span>
+          <h2 className="mb-10 text-center text-2xl md:text-3xl text-stone-900">
+            Features
           </h2>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <Feature
-              icon={<Terminal className="h-5 w-5" />}
-              title="Natural Language"
-              description="Query your data with plain English"
+              icon={<Database className="h-5 w-5" />}
+              title="SQL Generation"
+              description="AI generates optimized PostgreSQL queries"
             />
             <Feature
               icon={<BarChart3 className="h-5 w-5" />}
               title="Analytics"
-              description="Generate reports and insights"
+              description="Aggregations, breakdowns, and trends"
             />
             <Feature
               icon={<Shield className="h-5 w-5" />}
-              title="Secure"
-              description="Enterprise-grade security"
+              title="Read-Only"
+              description="Safe queries that never modify data"
             />
             <Feature
               icon={<Zap className="h-5 w-5" />}
               title="Fast"
-              description="Instant AI-powered responses"
+              description="Instant responses from your terminal"
+            />
+          </div>
+        </section>
+
+        {/* Getting Started */}
+        <section className="border-t border-stone-200/60 py-16 md:py-20">
+          <h2 className="mb-10 text-center text-2xl md:text-3xl text-stone-900">
+            Get started in{" "}
+            <span className="font-instrument-serif italic text-[#F97316]">
+              3 steps
+            </span>
+          </h2>
+
+          <div className="mx-auto grid max-w-2xl gap-5">
+            <Step
+              number={1}
+              title="Install"
+              description="Run the install command above"
+              code="curl -fsSL https://install.erpai.dev/install.sh | sh"
+            />
+            <Step
+              number={2}
+              title="Login"
+              description="Authenticate with your ERP·AI account"
+              code="erpai login"
+            />
+            <Step
+              number={3}
+              title="Chat"
+              description="Start asking questions about your data"
+              code="erpai chat"
             />
           </div>
         </section>
@@ -189,9 +249,9 @@ export default function Home() {
           </h2>
           <div className="mx-auto flex max-w-2xl flex-wrap justify-center gap-3">
             {[
-              "macOS (Apple Silicon / Intel)",
-              "Linux (x64)",
-              "Windows (x64)",
+              "macOS (Apple Silicon)",
+              "Linux (coming soon)",
+              "Windows (coming soon)",
               "ERP·AI account",
             ].map((req) => (
               <div
@@ -264,6 +324,59 @@ function Logo() {
         clipRule="evenodd"
       />
     </svg>
+  );
+}
+
+function CommandCard({
+  icon,
+  command,
+  description,
+}: {
+  icon: React.ReactNode;
+  command: string;
+  description: string;
+}) {
+  return (
+    <div className="rounded-xl border border-stone-200 bg-white p-5">
+      <div className="flex items-start gap-3">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-stone-100 text-stone-600">
+          {icon}
+        </div>
+        <div>
+          <code className="text-sm font-semibold text-stone-900 font-mono">
+            {command}
+          </code>
+          <p className="mt-1 text-sm text-stone-600">{description}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ExampleCard({
+  question,
+  answer,
+}: {
+  question: string;
+  answer: string;
+}) {
+  return (
+    <div className="rounded-xl border border-stone-200 bg-white p-5">
+      <div className="flex items-start gap-3">
+        <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#F97316] text-white text-xs font-medium">
+          Q
+        </div>
+        <div className="flex-1">
+          <p className="text-stone-900 font-medium">{question}</p>
+          <div className="mt-2 flex items-start gap-3">
+            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#22C55E] text-white text-xs font-medium">
+              A
+            </div>
+            <p className="text-sm text-stone-600">{answer}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
