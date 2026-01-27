@@ -20,19 +20,24 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "404 - Page Not Found",
-  description: "This page does not exist.",
-  robots: {
-    index: false,
-    follow: false,
-    nocache: true,
-    googleBot: {
-      index: false,
-      follow: false,
-    },
-  },
+  title: "ERP·AI CLI - AI-Powered ERP Assistant",
+  description:
+    "Command-line interface for ERP·AI. Query your ERP data using natural language.",
   icons: {
     icon: "/favicon.ico",
+  },
+  openGraph: {
+    title: "ERP·AI CLI",
+    description: "AI-powered assistant for your ERP data",
+    type: "website",
+    images: [
+      {
+        url: "https://app.erp.ai/-/social-preview-updated.png",
+        width: 1200,
+        height: 800,
+        alt: "ERP·AI CLI",
+      },
+    ],
   },
 };
 
