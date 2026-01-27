@@ -129,3 +129,46 @@
 .font-instrument-serif {
   font-family: var(--font-instrument-serif), "Instrument Serif", ui-serif, Georgia, serif;
 }
+
+@keyframes erpai-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes erpai-fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes erpai-pulse-soft {
+  0%,
+  100% {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  }
+  50% {
+    box-shadow: 0 10px 34px rgba(0, 0, 0, 0.12);
+  }
+}
+
+@layer utilities {
+  .animate-erpai-float {
+    animation: erpai-float 6s ease-in-out infinite;
+  }
+  .animate-erpai-fade-up {
+    animation: erpai-fade-up 0.8s ease-out both;
+  }
+  .animate-erpai-pulse-soft {
+    animation: erpai-pulse-soft 4.5s ease-in-out infinite;
+  }
+}

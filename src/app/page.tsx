@@ -14,6 +14,12 @@ import {
   Database,
   LogIn,
   History,
+  FileText,
+  Presentation,
+  FileSpreadsheet,
+  Upload,
+  Download,
+  LayoutDashboard,
 } from "lucide-react";
 
 const INSTALL_COMMAND = `curl -fsSL https://install.erpai.dev/install.sh | sh`;
@@ -61,26 +67,42 @@ export default function Home() {
       {/* Hero */}
       <main className="mx-auto max-w-5xl px-6">
         <section className="py-16 md:py-20 text-center">
-          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-stone-200 bg-white px-4 py-2">
+          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-stone-200 bg-white px-4 py-2 motion-safe:animate-erpai-float">
             <Terminal className="h-4 w-4 text-stone-500" />
             <span className="text-sm text-stone-600">Command Line Interface</span>
           </div>
 
-          <h1 className="mb-4 text-4xl md:text-5xl lg:text-6xl tracking-tight text-stone-900">
+          <h1
+            className="mb-4 text-4xl md:text-5xl lg:text-6xl tracking-tight text-stone-900 motion-safe:animate-erpai-fade-up"
+            style={{ animationDelay: "80ms" }}
+          >
             ERP·AI{" "}
             <span className="font-instrument-serif italic text-[#F97316]">
               CLI
             </span>
           </h1>
-          
-          <p className="mx-auto mb-10 max-w-2xl text-lg text-stone-600">
+
+          <p
+            className="mx-auto mb-4 max-w-2xl text-lg text-stone-900/90 motion-safe:animate-erpai-fade-up"
+            style={{ animationDelay: "140ms" }}
+          >
+            AI-powered assistant for your ERP data
+          </p>
+
+          <p
+            className="mx-auto mb-10 max-w-2xl text-lg text-stone-600 motion-safe:animate-erpai-fade-up"
+            style={{ animationDelay: "200ms" }}
+          >
             Query your ERP data using natural language directly from your terminal.
-            Get instant insights, run analytics, and explore your business data.
+            Get instant insights, generate reports, and export to business formats.
           </p>
 
           {/* Install Box */}
           <div className="mx-auto max-w-xl">
-            <div className="rounded-2xl border border-stone-200 bg-[#1C1C1C] p-5 text-left shadow-lg">
+            <div
+              className="rounded-2xl border border-stone-200 bg-[#1C1C1C] p-5 text-left shadow-lg motion-safe:animate-erpai-fade-up"
+              style={{ animationDelay: "260ms" }}
+            >
               <div className="mb-4 flex items-center gap-2">
                 <div className="h-3 w-3 rounded-full bg-[#FF5F56]" />
                 <div className="h-3 w-3 rounded-full bg-[#FFBD2E]" />
@@ -126,26 +148,86 @@ export default function Home() {
           </p>
 
           <div className="mx-auto grid max-w-3xl gap-4 md:grid-cols-2">
-            <CommandCard
-              icon={<LogIn className="h-5 w-5" />}
-              command="erpai login"
-              description="Authenticate with your ERP·AI account via browser"
-            />
-            <CommandCard
-              icon={<MessageSquare className="h-5 w-5" />}
-              command="erpai chat"
-              description="Start an AI-powered chat session with your app"
-            />
-            <CommandCard
-              icon={<History className="h-5 w-5" />}
-              command="erpai threads"
-              description="List and resume previous chat conversations"
-            />
-            <CommandCard
-              icon={<Terminal className="h-5 w-5" />}
-              command="erpai doctor"
-              description="Check CLI configuration and connectivity"
-            />
+            {[
+              {
+                icon: <LogIn className="h-5 w-5" />,
+                command: "erpai login",
+                description: "Authenticate with your ERP·AI account via browser",
+              },
+              {
+                icon: <MessageSquare className="h-5 w-5" />,
+                command: "erpai chat",
+                description: "Start an AI-powered chat session with your app",
+              },
+              {
+                icon: <History className="h-5 w-5" />,
+                command: "erpai threads",
+                description: "List and resume previous chat conversations",
+              },
+              {
+                icon: <Terminal className="h-5 w-5" />,
+                command: "erpai doctor",
+                description: "Check CLI configuration and connectivity",
+              },
+            ].map((item, index) => (
+              <CommandCard key={item.command} delay={index * 80} {...item} />
+            ))}
+          </div>
+        </section>
+
+        {/* Capabilities */}
+        <section className="border-t border-stone-200/60 py-16 md:py-20">
+          <h2 className="mb-4 text-center text-2xl md:text-3xl text-stone-900">
+            Reports, exports, and{" "}
+            <span className="font-instrument-serif italic text-[#F97316]">
+              automation
+            </span>
+          </h2>
+          <p className="mb-10 text-center text-stone-600 max-w-xl mx-auto">
+            Generate business-ready outputs and automate common workflows.
+          </p>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                icon: <FileText className="h-5 w-5" />,
+                title: "PDF reports",
+                description:
+                  "Generate polished PDF reports for leadership and compliance.",
+              },
+              {
+                icon: <Presentation className="h-5 w-5" />,
+                title: "PPT decks",
+                description:
+                  "Create slide-ready summaries and quarterly updates.",
+              },
+              {
+                icon: <FileSpreadsheet className="h-5 w-5" />,
+                title: "Excel export",
+                description:
+                  "Export data to Excel or CSV for finance and ops.",
+              },
+              {
+                icon: <Upload className="h-5 w-5" />,
+                title: "Excel import",
+                description:
+                  "Upload Excel files to build or enrich your datasets.",
+              },
+              {
+                icon: <LayoutDashboard className="h-5 w-5" />,
+                title: "Dashboards",
+                description:
+                  "Summarize KPIs into dashboards and team-ready views.",
+              },
+              {
+                icon: <Download className="h-5 w-5" />,
+                title: "Scheduled exports",
+                description:
+                  "Deliver reports on a cadence without manual effort.",
+              },
+            ].map((item, index) => (
+              <CapabilityCard key={item.title} delay={index * 70} {...item} />
+            ))}
           </div>
         </section>
 
@@ -162,22 +244,46 @@ export default function Home() {
           </p>
 
           <div className="mx-auto max-w-3xl space-y-4">
-            <ExampleCard
-              question="How many active customers do we have?"
-              answer="You have 1,247 active customers across 12 regions."
-            />
-            <ExampleCard
-              question="What's the total revenue for Q4?"
-              answer="Q4 revenue is $2.4M, up 18% from Q3."
-            />
-            <ExampleCard
-              question="Show me top 5 products by sales"
-              answer="1. Widget Pro ($450K) 2. Service Plus ($320K) ..."
-            />
-            <ExampleCard
-              question="Average order value by customer segment?"
-              answer="Enterprise: $12,400 | SMB: $2,100 | Startup: $890"
-            />
+            {[
+              {
+                question: "How many active customers do we have?",
+                answer: "You have 1,247 active customers across 12 regions.",
+              },
+              {
+                question: "What's the total revenue for Q4?",
+                answer: "Q4 revenue is $2.4M, up 18% from Q3.",
+              },
+              {
+                question: "Show me top 5 products by sales",
+                answer: "1. Widget Pro ($450K) 2. Service Plus ($320K) ...",
+              },
+              {
+                question: "Average order value by customer segment?",
+                answer: "Enterprise: $12,400 | SMB: $2,100 | Startup: $890",
+              },
+            ].map((item, index) => (
+              <ExampleCard key={item.question} delay={index * 70} {...item} />
+            ))}
+          </div>
+        </section>
+
+        {/* CLI UI Preview */}
+        <section className="border-t border-stone-200/60 py-16 md:py-20">
+          <div className="grid items-center gap-8 md:grid-cols-[1.1fr_1fr]">
+            <div className="motion-safe:animate-erpai-fade-up">
+              <h2 className="mb-4 text-2xl md:text-3xl text-stone-900">
+                Beautiful CLI{" "}
+                <span className="font-instrument-serif italic text-[#22C55E]">
+                  UI
+                </span>
+              </h2>
+              <p className="text-stone-600">
+                The ERP·AI CLI renders rich, structured output with clear
+                borders, readable prompts, and status-aware highlighting —
+                designed for fast work in the terminal.
+              </p>
+            </div>
+            <TerminalPreview />
           </div>
         </section>
 
@@ -188,26 +294,30 @@ export default function Home() {
           </h2>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <Feature
-              icon={<Database className="h-5 w-5" />}
-              title="SQL Generation"
-              description="AI generates optimized PostgreSQL queries"
-            />
-            <Feature
-              icon={<BarChart3 className="h-5 w-5" />}
-              title="Analytics"
-              description="Aggregations, breakdowns, and trends"
-            />
-            <Feature
-              icon={<Shield className="h-5 w-5" />}
-              title="Read-Only"
-              description="Safe queries that never modify data"
-            />
-            <Feature
-              icon={<Zap className="h-5 w-5" />}
-              title="Fast"
-              description="Instant responses from your terminal"
-            />
+            {[
+              {
+                icon: <Database className="h-5 w-5" />,
+                title: "SQL Generation",
+                description: "AI generates optimized PostgreSQL queries",
+              },
+              {
+                icon: <BarChart3 className="h-5 w-5" />,
+                title: "Analytics",
+                description: "Aggregations, breakdowns, and trends",
+              },
+              {
+                icon: <Shield className="h-5 w-5" />,
+                title: "Read-Only",
+                description: "Safe queries that never modify data",
+              },
+              {
+                icon: <Zap className="h-5 w-5" />,
+                title: "Fast",
+                description: "Instant responses from your terminal",
+              },
+            ].map((item, index) => (
+              <Feature key={item.title} delay={index * 70} {...item} />
+            ))}
           </div>
         </section>
 
@@ -331,13 +441,18 @@ function CommandCard({
   icon,
   command,
   description,
+  delay = 0,
 }: {
   icon: React.ReactNode;
   command: string;
   description: string;
+  delay?: number;
 }) {
   return (
-    <div className="rounded-xl border border-stone-200 bg-white p-5">
+    <div
+      className="rounded-xl border border-stone-200 bg-white p-5 motion-safe:animate-erpai-fade-up"
+      style={{ animationDelay: `${delay}ms` }}
+    >
       <div className="flex items-start gap-3">
         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-stone-100 text-stone-600">
           {icon}
@@ -353,15 +468,45 @@ function CommandCard({
   );
 }
 
+function CapabilityCard({
+  icon,
+  title,
+  description,
+  delay = 0,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  delay?: number;
+}) {
+  return (
+    <div
+      className="rounded-xl border border-stone-200 bg-white p-5 motion-safe:animate-erpai-fade-up"
+      style={{ animationDelay: `${delay}ms` }}
+    >
+      <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-stone-100 text-stone-600">
+        {icon}
+      </div>
+      <h3 className="mb-1 font-medium text-stone-900">{title}</h3>
+      <p className="text-sm text-stone-600">{description}</p>
+    </div>
+  );
+}
+
 function ExampleCard({
   question,
   answer,
+  delay = 0,
 }: {
   question: string;
   answer: string;
+  delay?: number;
 }) {
   return (
-    <div className="rounded-xl border border-stone-200 bg-white p-5">
+    <div
+      className="rounded-xl border border-stone-200 bg-white p-5 motion-safe:animate-erpai-fade-up"
+      style={{ animationDelay: `${delay}ms` }}
+    >
       <div className="flex items-start gap-3">
         <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#F97316] text-white text-xs font-medium">
           Q
@@ -413,18 +558,50 @@ function Feature({
   icon,
   title,
   description,
+  delay = 0,
 }: {
   icon: React.ReactNode;
   title: string;
   description: string;
+  delay?: number;
 }) {
   return (
-    <div className="rounded-xl border border-stone-200 bg-white p-5">
+    <div
+      className="rounded-xl border border-stone-200 bg-white p-5 motion-safe:animate-erpai-fade-up"
+      style={{ animationDelay: `${delay}ms` }}
+    >
       <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-stone-100 text-stone-600">
         {icon}
       </div>
       <h3 className="mb-1 font-medium text-stone-900">{title}</h3>
       <p className="text-sm text-stone-600">{description}</p>
+    </div>
+  );
+}
+
+function TerminalPreview() {
+  return (
+    <div className="rounded-2xl border border-stone-200 bg-[#0A0A0A] p-5 text-left shadow-lg motion-safe:animate-erpai-pulse-soft">
+      <div className="mb-4 flex items-center gap-2">
+        <div className="h-3 w-3 rounded-full bg-[#FF5F56]" />
+        <div className="h-3 w-3 rounded-full bg-[#FFBD2E]" />
+        <div className="h-3 w-3 rounded-full bg-[#27CA40]" />
+        <span className="ml-2 text-xs text-stone-500 font-mono">erpai chat</span>
+      </div>
+      <div className="space-y-3 text-sm font-mono">
+        <div className="rounded-lg border-l-2 border-emerald-400 bg-[#141414] px-3 py-2 text-stone-200">
+          <span className="text-emerald-400">You:</span> generate a revenue
+          summary for Q4
+        </div>
+        <div className="rounded-lg border-l-2 border-amber-400 bg-[#141414] px-3 py-2 text-stone-200">
+          <span className="text-amber-400">ERP·AI:</span> Q4 revenue is $2.4M
+          with 18% QoQ growth. Top driver: renewals.
+        </div>
+        <div className="rounded-lg border-l-2 border-blue-400 bg-[#141414] px-3 py-2 text-stone-300">
+          <span className="text-blue-400">Export:</span> Report saved as
+          <span className="text-stone-200"> revenue-q4.pdf</span>
+        </div>
+      </div>
     </div>
   );
 }
