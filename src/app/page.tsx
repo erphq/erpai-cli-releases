@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Check,
@@ -283,7 +283,7 @@ export default function Home() {
                 designed for fast work in the terminal.
               </p>
             </div>
-            <TerminalPreview />
+            <AnimatedTerminal />
           </div>
         </section>
 
@@ -579,9 +579,118 @@ function Feature({
   );
 }
 
-function TerminalPreview() {
+type TerminalStep = {
+  role: "user" | "assistant" | "tool";
+  label?: string;
+  prefix?: string;
+  text: string;
+};
+
+const TERMINAL_STEPS: TerminalStep[] = [
+  {
+    role: "user",
+    label: "You",
+    text: "generate a Q4 revenue summary and export a PDF report",
+  },
+  {
+    role: "assistant",
+    label: "ERP·AI",
+    text: "On it. I will analyze revenue and build the report.",
+  },
+  {
+    role: "tool",
+    prefix: "⊕ run_pg_query_on_app",
+    text: "Query completed in 124ms",
+  },
+  {
+    role: "assistant",
+    label: "ERP·AI",
+    text: "Q4 revenue is $2.4M (18% QoQ). Top driver: renewals.",
+  },
+  {
+    role: "tool",
+    prefix: "✓ export",
+    text: "Saved revenue-q4.pdf and q4-summary.pptx",
+  },
+  {
+    role: "tool",
+    prefix: "✓ report",
+    text: "Saved q4-revenue.xlsx",
+  },
+  {
+    role: "user",
+    label: "You",
+    text: "import latest pipeline Excel",
+  },
+  {
+    role: "tool",
+    prefix: "⊞ excel import",
+    text: "Added 184 rows to Sales_2024",
+  },
+];
+
+function AnimatedTerminal() {
+  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [currentCharIndex, setCurrentCharIndex] = useState(0);
+  const [reduceMotion, setReduceMotion] = useState(false);
+
+  const steps = useMemo(() => TERMINAL_STEPS, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduceMotion(media.matches);
+    update();
+    if (media.addEventListener) {
+      media.addEventListener("change", update);
+    } else {
+      media.addListener(update);
+    }
+    return () => {
+      if (media.removeEventListener) {
+        media.removeEventListener("change", update);
+      } else {
+        media.removeListener(update);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (reduceMotion) return;
+    if (currentStepIndex >= steps.length) {
+      const resetTimer = setTimeout(() => {
+        setCurrentStepIndex(0);
+        setCurrentCharIndex(0);
+      }, 2400);
+      return () => clearTimeout(resetTimer);
+    }
+
+    const step = steps[currentStepIndex];
+    const typingSpeed =
+      step.role === "tool" ? 14 : step.role === "assistant" ? 18 : 22;
+    const pauseDelay = step.role === "tool" ? 500 : 700;
+
+    if (currentCharIndex < step.text.length) {
+      const timer = setTimeout(() => {
+        setCurrentCharIndex((prev) => prev + 1);
+      }, typingSpeed);
+      return () => clearTimeout(timer);
+    }
+
+    const nextTimer = setTimeout(() => {
+      setCurrentStepIndex((prev) => prev + 1);
+      setCurrentCharIndex(0);
+    }, pauseDelay);
+
+    return () => clearTimeout(nextTimer);
+  }, [currentStepIndex, currentCharIndex, reduceMotion, steps]);
+
+  const visibleSteps = reduceMotion
+    ? steps
+    : steps.slice(0, Math.min(currentStepIndex + 1, steps.length));
+
   return (
-    <div className="rounded-2xl border border-stone-200 bg-[#0A0A0A] p-5 text-left shadow-lg motion-safe:animate-erpai-pulse-soft">
+    <div className="rounded-2xl border border-[#27272a] bg-[#0A0A0A] p-5 text-left shadow-lg">
       <div className="mb-4 flex items-center gap-2">
         <div className="h-3 w-3 rounded-full bg-[#FF5F56]" />
         <div className="h-3 w-3 rounded-full bg-[#FFBD2E]" />
@@ -589,19 +698,71 @@ function TerminalPreview() {
         <span className="ml-2 text-xs text-stone-500 font-mono">erpai chat</span>
       </div>
       <div className="space-y-3 text-sm font-mono">
-        <div className="rounded-lg border-l-2 border-emerald-400 bg-[#141414] px-3 py-2 text-stone-200">
-          <span className="text-emerald-400">You:</span> generate a revenue
-          summary for Q4
-        </div>
-        <div className="rounded-lg border-l-2 border-amber-400 bg-[#141414] px-3 py-2 text-stone-200">
-          <span className="text-amber-400">ERP·AI:</span> Q4 revenue is $2.4M
-          with 18% QoQ growth. Top driver: renewals.
-        </div>
-        <div className="rounded-lg border-l-2 border-blue-400 bg-[#141414] px-3 py-2 text-stone-300">
-          <span className="text-blue-400">Export:</span> Report saved as
-          <span className="text-stone-200"> revenue-q4.pdf</span>
-        </div>
+        {visibleSteps.map((step, index) => {
+          const isActive =
+            !reduceMotion && index === currentStepIndex && currentStepIndex < steps.length;
+          const text =
+            reduceMotion || index < currentStepIndex
+              ? step.text
+              : step.text.slice(0, currentCharIndex);
+          return (
+            <TerminalLine
+              key={`${step.role}-${index}`}
+              step={step}
+              text={text}
+              showCaret={isActive}
+            />
+          );
+        })}
       </div>
+    </div>
+  );
+}
+
+function TerminalLine({
+  step,
+  text,
+  showCaret,
+}: {
+  step: TerminalStep;
+  text: string;
+  showCaret: boolean;
+}) {
+  const roleStyles = {
+    user: {
+      container:
+        "rounded-md border-l-2 border-[#3b82f6] bg-[#141414] px-3 py-2 text-[#e4e4e7]",
+      label: "text-[#3b82f6]",
+      text: "text-[#e4e4e7]",
+    },
+    assistant: {
+      container: "pl-4 text-[#e4e4e7]",
+      label: "text-[#f59e0b]",
+      text: "text-[#e4e4e7]",
+    },
+    tool: {
+      container: "pl-6 text-[#71717a]",
+      label: "text-[#71717a]",
+      text: "text-[#71717a]",
+    },
+  } as const;
+
+  const styles = roleStyles[step.role];
+
+  return (
+    <div className={styles.container}>
+      {step.label && (
+        <span className={`${styles.label} mr-2`}>{step.label}:</span>
+      )}
+      {step.prefix && (
+        <span className={`${styles.label} mr-2`}>{step.prefix}</span>
+      )}
+      <span className={styles.text}>
+        {text}
+        {showCaret && (
+          <span className="ml-1 inline-block h-4 w-2 bg-[#e4e4e7] align-middle animate-erpai-caret" />
+        )}
+      </span>
     </div>
   );
 }
