@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Check,
   Copy,
   Terminal,
-  Zap,
   Shield,
   BarChart3,
   ArrowRight,
@@ -20,6 +19,14 @@ import {
   Upload,
   Download,
   LayoutDashboard,
+  Settings,
+  Users,
+  BadgeCheck,
+  Workflow,
+  Layers,
+  ClipboardList,
+  Search,
+  Sparkles,
 } from "lucide-react";
 
 const INSTALL_COMMAND = `curl -fsSL https://install.erpai.dev/install.sh | sh`;
@@ -76,10 +83,7 @@ export default function Home() {
             className="mb-4 text-4xl md:text-5xl lg:text-6xl tracking-tight text-stone-900 motion-safe:animate-erpai-fade-up"
             style={{ animationDelay: "80ms" }}
           >
-            ERP·AI{" "}
-            <span className="font-instrument-serif italic text-[#F97316]">
-              CLI
-            </span>
+            ERP·AI <span className="font-instrument-serif italic text-[#F97316]">CLI</span>
           </h1>
 
           <p
@@ -90,17 +94,19 @@ export default function Home() {
           </p>
 
           <p
-            className="mx-auto mb-10 max-w-2xl text-lg text-stone-600 motion-safe:animate-erpai-fade-up"
+            className="mx-auto mb-10 max-w-3xl text-lg text-stone-600 motion-safe:animate-erpai-fade-up"
             style={{ animationDelay: "200ms" }}
           >
-            Query your ERP data using natural language directly from your terminal.
-            Get instant insights, generate reports, and export to business formats.
+            Ask questions in plain English, generate analytics, and export
+            board-ready reports from the terminal. ERP·AI CLI connects to your
+            ERP·AI apps, understands your schema, and turns requests into
+            safe, audited actions that teams can trust.
           </p>
 
           {/* Install Box */}
           <div className="mx-auto max-w-xl">
             <div
-              className="rounded-2xl border border-stone-200 bg-[#1C1C1C] p-5 text-left shadow-lg motion-safe:animate-erpai-fade-up"
+              className="rounded-2xl border border-stone-200 bg-[#1C1C1C] p-5 text-left shadow-lg motion-safe:animate-erpai-fade-up motion-safe:animate-erpai-pulse-soft"
               style={{ animationDelay: "260ms" }}
             >
               <div className="mb-4 flex items-center gap-2">
@@ -136,6 +142,198 @@ export default function Home() {
               </Button>
             </div>
           </div>
+
+          <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm text-stone-600">
+            {[
+              "Natural language → SQL analytics",
+              "Read & update ERP records",
+              "Exports: PDF, PPT, XLSX, CSV",
+              "Threaded history and context",
+            ].map((item) => (
+              <span
+                key={item}
+                className="rounded-full border border-stone-200 bg-white px-4 py-2"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+        </section>
+
+        {/* Use cases */}
+        <section className="border-t border-stone-200/60 py-16 md:py-20">
+          <div className="mx-auto max-w-4xl text-center">
+            <h2 className="mb-4 text-2xl md:text-3xl text-stone-900">
+              Built for operators, analysts, and teams who ship
+            </h2>
+            <p className="text-stone-600">
+              ERP·AI CLI is the fastest way to answer questions, generate reports,
+              and keep data in sync — without hunting through dashboards.
+            </p>
+          </div>
+
+          <div className="mt-12 grid gap-5 md:grid-cols-2">
+            {[
+              {
+                icon: <BarChart3 className="h-5 w-5" />,
+                title: "Monthly close & finance reporting",
+                description:
+                  "Generate revenue, margin, and collections summaries in minutes.",
+                prompts: [
+                  "Close the month and summarize revenue by product line",
+                  "Create a cash collections report for the last 30 days",
+                ],
+              },
+              {
+                icon: <Search className="h-5 w-5" />,
+                title: "Sales pipeline & forecasting",
+                description:
+                  "Track deal velocity, stage conversion, and forecast accuracy.",
+                prompts: [
+                  "Show pipeline value by stage and owner",
+                  "Forecast this quarter based on historical conversion",
+                ],
+              },
+              {
+                icon: <ClipboardList className="h-5 w-5" />,
+                title: "Inventory & supply chain",
+                description:
+                  "Identify low-stock SKUs, reorder timelines, and vendor lead time.",
+                prompts: [
+                  "List SKUs at risk of stockout in the next 14 days",
+                  "Compare supplier lead times by category",
+                ],
+              },
+              {
+                icon: <Users className="h-5 w-5" />,
+                title: "Customer success & support",
+                description:
+                  "Review SLA compliance, top tickets, and CSAT trends.",
+                prompts: [
+                  "Summarize SLA breaches by account this week",
+                  "Top 10 ticket themes and resolution time",
+                ],
+              },
+              {
+                icon: <Layers className="h-5 w-5" />,
+                title: "Operations & fulfillment",
+                description:
+                  "Monitor throughput, backlog, and on-time delivery.",
+                prompts: [
+                  "Backlog aging by warehouse",
+                  "On-time delivery rate by carrier",
+                ],
+              },
+              {
+                icon: <Settings className="h-5 w-5" />,
+                title: "Data maintenance & governance",
+                description:
+                  "Bulk updates, record validation, and controlled edits.",
+                prompts: [
+                  "Normalize customer tiers and backfill missing regions",
+                  "Update payment terms for enterprise accounts",
+                ],
+              },
+            ].map((item, index) => (
+              <UseCaseCard key={item.title} delay={index * 70} {...item} />
+            ))}
+          </div>
+        </section>
+
+        {/* Outputs & automation */}
+        <section className="border-t border-stone-200/60 py-16 md:py-20">
+          <div className="grid gap-8 md:grid-cols-[1.1fr_1fr] items-center">
+            <div>
+              <h2 className="mb-4 text-2xl md:text-3xl text-stone-900">
+                Reports, exports, and deliverables
+              </h2>
+              <p className="text-stone-600">
+                Turn answers into the outputs teams need — PDF summaries,
+                PowerPoint decks, Excel workbooks, and CSV extracts. Schedule
+                exports for weekly leadership updates or finance reviews.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                {["PDF", "PPTX", "XLSX", "CSV", "JSON"].map((label) => (
+                  <span
+                    key={label}
+                    className="rounded-full border border-stone-200 bg-white px-4 py-2 text-sm text-stone-700"
+                  >
+                    {label}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="grid gap-4">
+              {[
+                {
+                  icon: <FileText className="h-5 w-5" />,
+                  title: "PDF & board-ready reports",
+                  description:
+                    "Create executive-ready PDFs with metrics, trends, and highlights.",
+                },
+                {
+                  icon: <Presentation className="h-5 w-5" />,
+                  title: "Slide decks for stakeholders",
+                  description:
+                    "Generate PPT summaries for leadership, QBRs, and OKRs.",
+                },
+                {
+                  icon: <FileSpreadsheet className="h-5 w-5" />,
+                  title: "Excel exports for analysis",
+                  description:
+                    "Send datasets to finance, ops, and GTM teams in seconds.",
+                },
+              ].map((item, index) => (
+                <Feature key={item.title} delay={index * 70} {...item} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Workflow section */}
+        <section className="border-t border-stone-200/60 py-16 md:py-20">
+          <h2 className="mb-4 text-center text-2xl md:text-3xl text-stone-900">
+            End-to-end workflows, from{" "}
+            <span className="font-instrument-serif italic text-[#22C55E]">
+              import
+            </span>{" "}
+            to action
+          </h2>
+          <p className="mb-10 text-center text-stone-600 max-w-2xl mx-auto">
+            Bring in Excel data, ask for insights, and push outputs to the teams
+            that need them — without leaving the terminal.
+          </p>
+
+          <div className="mx-auto grid max-w-4xl gap-5 md:grid-cols-2">
+            {[
+              {
+                icon: <Upload className="h-5 w-5" />,
+                title: "Import Excel safely",
+                description:
+                  "Upload Excel files and map columns to ERP·AI tables.",
+              },
+              {
+                icon: <MessageSquare className="h-5 w-5" />,
+                title: "Ask questions in natural language",
+                description:
+                  "Turn questions into SQL analytics and summaries.",
+              },
+              {
+                icon: <Download className="h-5 w-5" />,
+                title: "Export results instantly",
+                description:
+                  "Generate PDFs, PPTs, and spreadsheets for stakeholders.",
+              },
+              {
+                icon: <Workflow className="h-5 w-5" />,
+                title: "Automate recurring requests",
+                description:
+                  "Repeat exports and summaries on a cadence.",
+              },
+            ].map((item, index) => (
+              <WorkflowCard key={item.title} delay={index * 80} {...item} />
+            ))}
+          </div>
         </section>
 
         {/* Commands */}
@@ -144,7 +342,7 @@ export default function Home() {
             Commands
           </h2>
           <p className="mb-10 text-center text-stone-600 max-w-xl mx-auto">
-            Simple commands to interact with your ERP·AI apps
+            Simple commands to interact with your ERP·AI apps.
           </p>
 
           <div className="mx-auto grid max-w-3xl gap-4 md:grid-cols-2">
@@ -175,149 +373,50 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Capabilities */}
+        {/* Long-form feature section */}
         <section className="border-t border-stone-200/60 py-16 md:py-20">
-          <h2 className="mb-4 text-center text-2xl md:text-3xl text-stone-900">
-            Reports, exports, and{" "}
-            <span className="font-instrument-serif italic text-[#F97316]">
-              automation
-            </span>
-          </h2>
-          <p className="mb-10 text-center text-stone-600 max-w-xl mx-auto">
-            Generate business-ready outputs and automate common workflows.
-          </p>
-
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                icon: <FileText className="h-5 w-5" />,
-                title: "PDF reports",
-                description:
-                  "Generate polished PDF reports for leadership and compliance.",
-              },
-              {
-                icon: <Presentation className="h-5 w-5" />,
-                title: "PPT decks",
-                description:
-                  "Create slide-ready summaries and quarterly updates.",
-              },
-              {
-                icon: <FileSpreadsheet className="h-5 w-5" />,
-                title: "Excel export",
-                description:
-                  "Export data to Excel or CSV for finance and ops.",
-              },
-              {
-                icon: <Upload className="h-5 w-5" />,
-                title: "Excel import",
-                description:
-                  "Upload Excel files to build or enrich your datasets.",
-              },
-              {
-                icon: <LayoutDashboard className="h-5 w-5" />,
-                title: "Dashboards",
-                description:
-                  "Summarize KPIs into dashboards and team-ready views.",
-              },
-              {
-                icon: <Download className="h-5 w-5" />,
-                title: "Scheduled exports",
-                description:
-                  "Deliver reports on a cadence without manual effort.",
-              },
-            ].map((item, index) => (
-              <CapabilityCard key={item.title} delay={index * 70} {...item} />
-            ))}
-          </div>
-        </section>
-
-        {/* What you can do */}
-        <section className="border-t border-stone-200/60 py-16 md:py-20">
-          <h2 className="mb-4 text-center text-2xl md:text-3xl text-stone-900">
-            What you can{" "}
-            <span className="font-instrument-serif italic text-[#22C55E]">
-              do
-            </span>
-          </h2>
-          <p className="mb-10 text-center text-stone-600 max-w-xl mx-auto">
-            Ask questions in plain English and get answers from your data
-          </p>
-
-          <div className="mx-auto max-w-3xl space-y-4">
-            {[
-              {
-                question: "How many active customers do we have?",
-                answer: "You have 1,247 active customers across 12 regions.",
-              },
-              {
-                question: "What's the total revenue for Q4?",
-                answer: "Q4 revenue is $2.4M, up 18% from Q3.",
-              },
-              {
-                question: "Show me top 5 products by sales",
-                answer: "1. Widget Pro ($450K) 2. Service Plus ($320K) ...",
-              },
-              {
-                question: "Average order value by customer segment?",
-                answer: "Enterprise: $12,400 | SMB: $2,100 | Startup: $890",
-              },
-            ].map((item, index) => (
-              <ExampleCard key={item.question} delay={index * 70} {...item} />
-            ))}
-          </div>
-        </section>
-
-        {/* CLI UI Preview */}
-        <section className="border-t border-stone-200/60 py-16 md:py-20">
-          <div className="grid items-center gap-8 md:grid-cols-[1.1fr_1fr]">
-            <div className="motion-safe:animate-erpai-fade-up">
+          <div className="grid gap-8 md:grid-cols-2 items-start">
+            <div>
               <h2 className="mb-4 text-2xl md:text-3xl text-stone-900">
-                Beautiful CLI{" "}
-                <span className="font-instrument-serif italic text-[#22C55E]">
-                  UI
-                </span>
+                Designed for real operational work
               </h2>
               <p className="text-stone-600">
-                The ERP·AI CLI renders rich, structured output with clear
-                borders, readable prompts, and status-aware highlighting —
-                designed for fast work in the terminal.
+                ERP·AI CLI is built for analysts and operators who live in
+                spreadsheets but need faster answers. It keeps context across
+                sessions, understands table schemas, and turns requests into
+                safe actions with guardrails.
               </p>
             </div>
-            <AnimatedTerminal />
-          </div>
-        </section>
-
-        {/* Features */}
-        <section className="border-t border-stone-200/60 py-16 md:py-20">
-          <h2 className="mb-10 text-center text-2xl md:text-3xl text-stone-900">
-            Features
-          </h2>
-
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              {
-                icon: <Database className="h-5 w-5" />,
-                title: "SQL Generation",
-                description: "AI generates optimized PostgreSQL queries",
-              },
-              {
-                icon: <BarChart3 className="h-5 w-5" />,
-                title: "Analytics",
-                description: "Aggregations, breakdowns, and trends",
-              },
-              {
-                icon: <Shield className="h-5 w-5" />,
-                title: "Read-Only",
-                description: "Safe queries that never modify data",
-              },
-              {
-                icon: <Zap className="h-5 w-5" />,
-                title: "Fast",
-                description: "Instant responses from your terminal",
-              },
-            ].map((item, index) => (
-              <Feature key={item.title} delay={index * 70} {...item} />
-            ))}
+            <div className="grid gap-4">
+              {[
+                {
+                  icon: <Database className="h-5 w-5" />,
+                  title: "Schema-aware analytics",
+                  description:
+                    "Auto-discovers tables and generates SQL with the right joins.",
+                },
+                {
+                  icon: <BadgeCheck className="h-5 w-5" />,
+                  title: "Reliable, audited output",
+                  description:
+                    "Summaries backed by SQL and consistent formatting.",
+                },
+                {
+                  icon: <Shield className="h-5 w-5" />,
+                  title: "Safe by default",
+                  description:
+                    "Analytics focus with explicit tools for record updates.",
+                },
+                {
+                  icon: <Sparkles className="h-5 w-5" />,
+                  title: "Fast iteration",
+                  description:
+                    "Ask follow-up questions and refine results in seconds.",
+                },
+              ].map((item, index) => (
+                <Feature key={item.title} delay={index * 70} {...item} />
+              ))}
+            </div>
           </div>
         </section>
 
@@ -468,63 +567,6 @@ function CommandCard({
   );
 }
 
-function CapabilityCard({
-  icon,
-  title,
-  description,
-  delay = 0,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-  delay?: number;
-}) {
-  return (
-    <div
-      className="rounded-xl border border-stone-200 bg-white p-5 motion-safe:animate-erpai-fade-up"
-      style={{ animationDelay: `${delay}ms` }}
-    >
-      <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-stone-100 text-stone-600">
-        {icon}
-      </div>
-      <h3 className="mb-1 font-medium text-stone-900">{title}</h3>
-      <p className="text-sm text-stone-600">{description}</p>
-    </div>
-  );
-}
-
-function ExampleCard({
-  question,
-  answer,
-  delay = 0,
-}: {
-  question: string;
-  answer: string;
-  delay?: number;
-}) {
-  return (
-    <div
-      className="rounded-xl border border-stone-200 bg-white p-5 motion-safe:animate-erpai-fade-up"
-      style={{ animationDelay: `${delay}ms` }}
-    >
-      <div className="flex items-start gap-3">
-        <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#F97316] text-white text-xs font-medium">
-          Q
-        </div>
-        <div className="flex-1">
-          <p className="text-stone-900 font-medium">{question}</p>
-          <div className="mt-2 flex items-start gap-3">
-            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#22C55E] text-white text-xs font-medium">
-              A
-            </div>
-            <p className="text-sm text-stone-600">{answer}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function Step({
   number,
   title,
@@ -579,190 +621,62 @@ function Feature({
   );
 }
 
-type TerminalStep = {
-  role: "user" | "assistant" | "tool";
-  label?: string;
-  prefix?: string;
-  text: string;
-};
-
-const TERMINAL_STEPS: TerminalStep[] = [
-  {
-    role: "user",
-    label: "You",
-    text: "generate a Q4 revenue summary and export a PDF report",
-  },
-  {
-    role: "assistant",
-    label: "ERP·AI",
-    text: "On it. I will analyze revenue and build the report.",
-  },
-  {
-    role: "tool",
-    prefix: "⊕ run_pg_query_on_app",
-    text: "Query completed in 124ms",
-  },
-  {
-    role: "assistant",
-    label: "ERP·AI",
-    text: "Q4 revenue is $2.4M (18% QoQ). Top driver: renewals.",
-  },
-  {
-    role: "tool",
-    prefix: "✓ export",
-    text: "Saved revenue-q4.pdf and q4-summary.pptx",
-  },
-  {
-    role: "tool",
-    prefix: "✓ report",
-    text: "Saved q4-revenue.xlsx",
-  },
-  {
-    role: "user",
-    label: "You",
-    text: "import latest pipeline Excel",
-  },
-  {
-    role: "tool",
-    prefix: "⊞ excel import",
-    text: "Added 184 rows to Sales_2024",
-  },
-];
-
-function AnimatedTerminal() {
-  const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  const [currentCharIndex, setCurrentCharIndex] = useState(0);
-  const [reduceMotion, setReduceMotion] = useState(false);
-
-  const steps = useMemo(() => TERMINAL_STEPS, []);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setReduceMotion(media.matches);
-    update();
-    if (media.addEventListener) {
-      media.addEventListener("change", update);
-    } else {
-      media.addListener(update);
-    }
-    return () => {
-      if (media.removeEventListener) {
-        media.removeEventListener("change", update);
-      } else {
-        media.removeListener(update);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    if (reduceMotion) return;
-    if (currentStepIndex >= steps.length) {
-      const resetTimer = setTimeout(() => {
-        setCurrentStepIndex(0);
-        setCurrentCharIndex(0);
-      }, 2400);
-      return () => clearTimeout(resetTimer);
-    }
-
-    const step = steps[currentStepIndex];
-    const typingSpeed =
-      step.role === "tool" ? 14 : step.role === "assistant" ? 18 : 22;
-    const pauseDelay = step.role === "tool" ? 500 : 700;
-
-    if (currentCharIndex < step.text.length) {
-      const timer = setTimeout(() => {
-        setCurrentCharIndex((prev) => prev + 1);
-      }, typingSpeed);
-      return () => clearTimeout(timer);
-    }
-
-    const nextTimer = setTimeout(() => {
-      setCurrentStepIndex((prev) => prev + 1);
-      setCurrentCharIndex(0);
-    }, pauseDelay);
-
-    return () => clearTimeout(nextTimer);
-  }, [currentStepIndex, currentCharIndex, reduceMotion, steps]);
-
-  const visibleSteps = reduceMotion
-    ? steps
-    : steps.slice(0, Math.min(currentStepIndex + 1, steps.length));
-
+function UseCaseCard({
+  icon,
+  title,
+  description,
+  prompts,
+  delay = 0,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  prompts: string[];
+  delay?: number;
+}) {
   return (
-    <div className="rounded-2xl border border-[#27272a] bg-[#0A0A0A] p-5 text-left shadow-lg">
-      <div className="mb-4 flex items-center gap-2">
-        <div className="h-3 w-3 rounded-full bg-[#FF5F56]" />
-        <div className="h-3 w-3 rounded-full bg-[#FFBD2E]" />
-        <div className="h-3 w-3 rounded-full bg-[#27CA40]" />
-        <span className="ml-2 text-xs text-stone-500 font-mono">erpai chat</span>
+    <div
+      className="rounded-2xl border border-stone-200 bg-white p-6 motion-safe:animate-erpai-fade-up"
+      style={{ animationDelay: `${delay}ms` }}
+    >
+      <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-stone-100 text-stone-600">
+        {icon}
       </div>
-      <div className="space-y-3 text-sm font-mono">
-        {visibleSteps.map((step, index) => {
-          const isActive =
-            !reduceMotion && index === currentStepIndex && currentStepIndex < steps.length;
-          const text =
-            reduceMotion || index < currentStepIndex
-              ? step.text
-              : step.text.slice(0, currentCharIndex);
-          return (
-            <TerminalLine
-              key={`${step.role}-${index}`}
-              step={step}
-              text={text}
-              showCaret={isActive}
-            />
-          );
-        })}
+      <h3 className="mb-2 text-lg font-medium text-stone-900">{title}</h3>
+      <p className="text-sm text-stone-600">{description}</p>
+      <div className="mt-4 space-y-2 text-sm text-stone-500">
+        {prompts.map((prompt) => (
+          <div key={prompt} className="flex items-start gap-2">
+            <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#F97316]" />
+            <span>{prompt}</span>
+          </div>
+        ))}
       </div>
     </div>
   );
 }
 
-function TerminalLine({
-  step,
-  text,
-  showCaret,
+function WorkflowCard({
+  icon,
+  title,
+  description,
+  delay = 0,
 }: {
-  step: TerminalStep;
-  text: string;
-  showCaret: boolean;
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  delay?: number;
 }) {
-  const roleStyles = {
-    user: {
-      container:
-        "rounded-md border-l-2 border-[#3b82f6] bg-[#141414] px-3 py-2 text-[#e4e4e7]",
-      label: "text-[#3b82f6]",
-      text: "text-[#e4e4e7]",
-    },
-    assistant: {
-      container: "pl-4 text-[#e4e4e7]",
-      label: "text-[#f59e0b]",
-      text: "text-[#e4e4e7]",
-    },
-    tool: {
-      container: "pl-6 text-[#71717a]",
-      label: "text-[#71717a]",
-      text: "text-[#71717a]",
-    },
-  } as const;
-
-  const styles = roleStyles[step.role];
-
   return (
-    <div className={styles.container}>
-      {step.label && (
-        <span className={`${styles.label} mr-2`}>{step.label}:</span>
-      )}
-      {step.prefix && (
-        <span className={`${styles.label} mr-2`}>{step.prefix}</span>
-      )}
-      <span className={styles.text}>
-        {text}
-        {showCaret && (
-          <span className="ml-1 inline-block h-4 w-2 bg-[#e4e4e7] align-middle animate-erpai-caret" />
-        )}
-      </span>
+    <div
+      className="rounded-2xl border border-stone-200 bg-white p-6 motion-safe:animate-erpai-fade-up"
+      style={{ animationDelay: `${delay}ms` }}
+    >
+      <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-stone-100 text-stone-600">
+        {icon}
+      </div>
+      <h3 className="mb-2 text-lg font-medium text-stone-900">{title}</h3>
+      <p className="text-sm text-stone-600">{description}</p>
     </div>
   );
 }
