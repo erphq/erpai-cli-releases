@@ -1,12 +1,12 @@
-# ERP·AI CLI
+# ERP•AI CLI
 
 AI-powered command-line interface for your ERP data.
 
 ## Quick Install
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/ERPdotAI/erpai-cli-releases/main/install.sh | \
-  sudo env REPO=ERPdotAI/erpai-cli-releases VERSION=v0.1.5 sh
+curl -fsSL https://raw.githubusercontent.com/erphq/erpai-cli-releases/main/install.sh | \
+  sudo env REPO=erphq/erpai-cli-releases VERSION=v0.1.5 sh
 ```
 
 ## Getting Started
@@ -29,9 +29,9 @@ npm run dev
 - macOS (Apple Silicon or Intel)
 - Linux (x64)
 - Windows (x64)
-- ERP·AI account
+- ERP•AI account
 
 ## Links
 
-- [ERP·AI Platform](https://erp.ai)
+- [ERP•AI Platform](https://erp.ai)
 - [Documentation](https://erp.ai/docs)
