@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-REPO=${REPO:-"ERPdotAI/erpai-cli-releases"}
+REPO=${REPO:-"erphq/erpai-cli-releases"}
 VERSION=${VERSION:-"latest"}
 INSTALL_DIR=${INSTALL_DIR:-"/usr/local/bin"}
 BIN_NAME="erpai"
